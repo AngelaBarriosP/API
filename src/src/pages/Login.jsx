@@ -1,60 +1,71 @@
-import React from 'react';
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBRow,
-  MDBCol,
-  MDBIcon,
-  MDBInput
-}
-from 'mdb-react-ui-kit';
+import React, { useState } from 'react';
+import { useNavigate, Link } from "react-router-dom";
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-import './login.css';
+const Login = () => {
 
-function App() {
+  const [miLogin, setMiLogin] = useState("false");
+  const [usu, setUsu] = useState("");
+  const [pas, setPas] = useState("");
+  const navigate = useNavigate ();
+
+   function iniciarSesion(e){
+    e.preventDefault();
+    var txtusu = document.getElementById("txtusu").value;
+    var txtpas = document.getElementById("txtpas").value;
+    if(txtusu.length===0 || txtpas.length===0){
+      alert("Complete Los Datos Faltantes!!");
+    }else{
+      if(usu === "admin" && pas==="123"){
+        setMiLogin("true");
+        document.getElementById("form_login").style.display = "none";
+        navigate("/order-list");
+      }else{
+        setMiLogin("false");
+        alert("Error De Usuario y/o Contraseña!!");
+        document.getElementById("txtusu").value = "";
+        document.getElementById("txtpas").value = "";
+        document.getElementById("txtusu").focus();
+        
+      }
+    }
+  }
+ 
+  
   return (
-    <MDBContainer className="my-5">
+    
 
-      <MDBCard>
-        <MDBRow className='g-0'>
+    <div className="container" style={{background:"lightgray", marginTop:20, padding:20}}>
+        
+    <form id="form_login">
+        <div>
 
-          <MDBCol md='6'>
-            <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp' alt="login form" className='rounded-start w-100'/>
-          </MDBCol>
+            <h1 style={{color:"blue", textalign:"center"}}>Inicio de sesión</h1>
+            <Link className="d-flex justify-content-end" to="/register">Regístrate AQUÍ</Link>
+            <Form.Group as={Row} className="mb-4 justify-content-center" >
+            <Form.Label column md="2" htmlFor="txtusu">Usuario:</Form.Label>
+              <Col md="6">
+              <Form.Control id="txtusu" className="form-control" onChange={ (e)=>setUsu(e.target.value) }  required/>
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-4 justify-content-center" >
+            <Form.Label column md="2" htmlFor="txtpas">Contraseña:</Form.Label>
+              <Col md="6">
+              <Form.Control type="password" id="txtpas" className="form-control" onChange={ (e)=>setPas(e.target.value) }  required/>
+              </Col>
+            </Form.Group>
+          </div><br/>
+        <input type="submit"  className="btn btn-primary" value="Login" onClick={ iniciarSesion }/>
+    </form>
 
-          <MDBCol md='6'>
-            <MDBCardBody className='d-flex flex-column'>
+    
 
-              <div className='d-flex flex-row mt-2'>
-                <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: '#ff6219' }}/>
-                <span className="h1 fw-bold mb-0">Logo</span>
-              </div>
+</div>
 
-              <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Sign into your account</h5>
 
-                <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg"/>
-                <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"/>
-
-              <MDBBtn className="mb-4 px-5" color='dark' size='lg' href="/order-list">Login</MDBBtn>
-              <a className="small text-muted" href="#!">Forgot password?</a>
-              <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <a href="/register" style={{color: '#393f81'}}>Register here</a></p>
-
-              <div className='d-flex flex-row justify-content-start'>
-                <a href="#!" className="small text-muted me-1">Terms of use.</a>
-                <a href="#!" className="small text-muted">Privacy policy</a>
-              </div>
-
-            </MDBCardBody>
-          </MDBCol>
-
-        </MDBRow>
-      </MDBCard>
-
-    </MDBContainer>
-  );
+  )
 }
 
-export default App;
+export default Login;

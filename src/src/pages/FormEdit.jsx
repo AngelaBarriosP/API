@@ -1,33 +1,46 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
+import {Form, Button, Row, Col, Container, Card} from 'react-bootstrap';
 import Hora2 from './Time';
 import Fecha2 from './Date';
-import Card from 'react-bootstrap/Card';
-import { Link } from "react-router-dom";
+import {useState} from "react";
 
-function FormEdit() {
+
+const FormEdit = () => {
+    const [state, setState] = useState({
+          editAncho:"",
+          editLargo:"",
+          editAlto:"",
+          editPeso:"",
+          editDirRec:"",
+          editCiuRec:"",
+          editNomDest:"",
+          editIdDest:"",
+          editDirDest:"",
+          editCiuDest:"",
+
+        })
+    
+    const handleOnChange = ({ target}, attributte) => {
+      const value = target.value;
+      const cloneState = {...state};
+      cloneState[attributte] = value;
+      console.log("status =>", state);
+      setState(cloneState);
+    }
+  
   return (
       
-    <>
+    
     <Container>
-      <Card border="dark" card-expand-lg>
+      <Card border="dark" >
         <Card.Header>
         <Card.Title id="cardT" >GESTION DE PAQUETES - Actualización de Órdenes (Recogida) </Card.Title>
           </Card.Header>
         <Card.Body>
         <Card.Text>
           <Form>
-            <Form.Group as={Row} className="mb-3 justify-content-end" controlId="formEditDim">
-              <Col md="auto">
-              <Link className="d-flex justify-content-end" to="/Login">Cerrar sesión</Link>
-              
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-3 justify-content-center" controlId="formEditDirRec">
+            
+            <Form.Group as={Row} className="mb-3 justify-content-center" >
               <Col md="auto">
               <Form.Label> Fecha : <Fecha2/> </Form.Label>
               </Col>                        
@@ -36,26 +49,26 @@ function FormEdit() {
               </Col>
               
               </Form.Group>
-            <Form.Group as={Row} className="mb-3 justify-content-center" controlId="formEditDim">
+            <Form.Group as={Row} className="mb-3 justify-content-center" >
               <Form.Label column md="auto">Ancho (mts):</Form.Label>
               <Col md="1">
-              <Form.Control id="editAncho" placeholder="00,00" />
+              <Form.Control placeholder="00,00" type="text" value={state.editAncho} onChange={(event)=> handleOnChange(event, "editAncho") } />
               </Col>
               <Form.Label column md="auto">Largo (mts):</Form.Label>
               <Col md="1">
-              <Form.Control id="editLargo" placeholder="00,00" />
+              <Form.Control placeholder="00,00" type="text" value={state.editLargo} onChange={(event)=> handleOnChange(event, "editLargo") } />
               </Col>
               <Form.Label column md="auto">Alto (mts):</Form.Label>
               <Col md="1">
-              <Form.Control id="editAlto" placeholder="00,00" />
+              <Form.Control placeholder="00,00" type="text" value={state.editAlto} onChange={(event)=> handleOnChange(event, "editAlto") } />
               </Col>
             </Form.Group>
           
           
-            <Form.Group as={Row} className="mb-4 align-items-center justify-content-center" controlId="formEditPME">
+            <Form.Group as={Row} className="mb-4 align-items-center justify-content-center" >
               <Form.Label column md="auto">Peso (grs):</Form.Label>
               <Col md="1">
-              <Form.Control id="editPeso" placeholder="00,00" />
+              <Form.Control placeholder="00,00" type="text" value={state.editPeso} onChange={(event)=> handleOnChange(event, "editPeso") }/>
               </Col>
               <Form.Label column md="auto">Mercancía delicada</Form.Label>
               <Col md="auto">
@@ -70,45 +83,45 @@ function FormEdit() {
               </Col>
             </Form.Group>
           
-            <Form.Group as={Row} className="mb-4 justify-content-center" controlId="formEditDirRec">
+            <Form.Group as={Row} className="mb-4 justify-content-center" >
               <Form.Label column md="2">Dirección de recogida</Form.Label>
               <Col md="6">
-              <Form.Control id="editDirRec" />
+              <Form.Control type="text" value={state.editDirRec} onChange={(event)=> handleOnChange(event, "editDirRec") }  />
               </Col>
             </Form.Group>
           
-            <Form.Group as={Row} className="mb-4 justify-content-center" controlId="formEditCiuRec">
+            <Form.Group as={Row} className="mb-4 justify-content-center" >
               <Form.Label column md="2">Ciudad de recogida</Form.Label>
               <Col md="6">
-              <Form.Control id="editCiuRec" />
+              <Form.Control type="text" value={state.editCiuRec} onChange={(event)=> handleOnChange(event, "editCiuRec") } />
               </Col>
             </Form.Group>
           
-            <Form.Group as={Row} className="mb-4 justify-content-center" controlId="formEditNomDest">
+            <Form.Group as={Row} className="mb-4 justify-content-center" >
               <Form.Label column md="auto">Nombre del destinatario</Form.Label>
               <Col md="6">
-              <Form.Control id="editNomDest" />
+              <Form.Control type="text" value={state.editNomDest} onChange={(event)=> handleOnChange(event, "editNomDest") } />
               </Col>
             </Form.Group>
           
-            <Form.Group as={Row} className="mb-4 justify-content-center" controlId="formEditIdDest">
+            <Form.Group as={Row} className="mb-4 justify-content-center" >
               <Form.Label column md="auto">Cédula/Nit del destinatario</Form.Label>
               <Col md="6">
-              <Form.Control id="editIdDest" />
+              <Form.Control type="text" value={state.editIdDest} onChange={(event)=> handleOnChange(event, "editIdDest") } />
               </Col>
             </Form.Group>
           
-            <Form.Group as={Row} className="mb-4 justify-content-center" controlId="formEditDirEnt">
+            <Form.Group as={Row} className="mb-4 justify-content-center" >
               <Form.Label column md="auto">Dirección de entrega</Form.Label>
               <Col md="6">
-              <Form.Control id="editDirRec" />
+              <Form.Control type="text" value={state.editDirDest} onChange={(event)=> handleOnChange(event, "editDirDest") } />
               </Col>
             </Form.Group>
           
-            <Form.Group as={Row} className="mb-4 justify-content-center" controlId="formEditCiuEnt">
+            <Form.Group as={Row} className="mb-4 justify-content-center" >
               <Form.Label column md="auto">Ciudad de entrega</Form.Label>
               <Col md="6">
-              <Form.Control id="editCiuRec" />
+              <Form.Control type="text" value={state.editCiuDest} onChange={(event)=> handleOnChange(event, "editCiuDest") } />
               </Col>
             </Form.Group>
             <fieldset>
@@ -127,7 +140,7 @@ function FormEdit() {
         </Card.Body>
       </Card>
     </Container>
-    </>
+    
     
   );
 }

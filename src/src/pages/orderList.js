@@ -1,9 +1,20 @@
 import { Link } from "react-router-dom";
+import {Row, Col} from 'react-bootstrap';
+
+
 const OrderList=()=>{
     return(
         <div>
             <h2>Gestion de paquetes - Listado de ordenes</h2>
-            <Link className="d-flex justify-content-end" to="/new-order">Crear Orden</Link>
+            <Row className="mb-4">
+                <Col className="md-8">
+                    <Link className="d-flex justify-content-start" to="/Login">Cerrar sesión</Link>
+                </Col>
+                <Col className="md-4">
+                    <Link className="d-flex justify-content-end" to="/new-order">Crear Orden</Link>  
+                </Col>
+            </Row>
+            
             <table className="table table-striped mt-3">
                 <thead>
                     <tr>
