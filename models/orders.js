@@ -5,11 +5,11 @@ const Joi = require ("Joi");
 var orderSchema = new mongoose.Schema({
     
     fecha:{
-        type: String,
+        type:Date,
         required:true
     },
     hora:{
-        type:String,
+        type:Date,
         required:true
     },
     ancho:{
@@ -32,7 +32,6 @@ var orderSchema = new mongoose.Schema({
         type:Boolean,
         required:true,
         default:false
-        
     },
     direcReco:{
         type:String,
@@ -58,9 +57,15 @@ var orderSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    estado:{
+        type:String,
+        default:"Guardado"
+
+    },
     
 });
 
+module.exports = mongoose.model("orders", orderSchema)
 
 const dataOrder = mongoose.model('dataOrder', orderSchema);
 
@@ -68,8 +73,8 @@ const dataOrder = mongoose.model('dataOrder', orderSchema);
 
 const validator = (data)=> {
     const schema = Joi.object({
-        fecha:Joi.string().required(),
-        hora:Joi.string().required(),
+        fecha:Joi.Date().required(),
+        hora:Joi.Date().required(),
         ancho:Joi.string().required(),
         largo:Joi.string().required(),
         alto:Joi.string().required(),
@@ -81,8 +86,6 @@ const validator = (data)=> {
         cedulaNitDes:Joi.string().required(),
         direcEntr:Joi.string().required(),
         ciudadEntr:Joi.string().required(),
-
-
     })
     return schema.validate(data)
 
