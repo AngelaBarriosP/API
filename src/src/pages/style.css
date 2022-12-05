@@ -1,0 +1,21 @@
+#input1 {
+    min-height: 10px;
+    width: 100px;
+}
+#input2 {
+    min-height: 10px;
+    width: 120px;
+}
+#Form {
+    display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#cardT{
+    display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#bt{
+    float:right;
+}
