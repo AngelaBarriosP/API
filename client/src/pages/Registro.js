@@ -1,6 +1,8 @@
 import {Button, Form, Container, Row, Col} from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import {useState} from "react";
+import axios from "axios";
+
 
 const FormRegister = () => {
     const [state, setState] = useState({
@@ -17,6 +19,25 @@ const FormRegister = () => {
       cloneState[attributte] = value;
       console.log("status =>", state);
       setState(cloneState);
+    }
+
+    const createUser=()=>{
+      axios.post("http://localhost:4000/auth/register",{
+        username: state.userNickname,
+        password: state.userPass,
+        fullName: state.userName,
+        email:state.userEmail,
+        document:state.userID,
+      }).then((res)=>{
+        console.log(res);
+
+      }).catch((error)=>{
+        console.log(error);
+
+      })
+
+      //importat axios
+
     }
       
     
@@ -67,11 +88,11 @@ const FormRegister = () => {
           </Form.Group>
           <Row className="mb-4 justify-content-center">
                 <Col md="auto">
-                  <Button href="/login" type="cancelar">Cancelar</Button>
+                  <Button href="/login">Cancelar</Button>
 
                 </Col>
                 <Col md="auto">
-                  <Button href="/login" variant="primary" type="submit">Crear</Button>
+                  <Button variant="primary" onClick={createUser}>Crear</Button>
 
                 </Col>
             </Row>
