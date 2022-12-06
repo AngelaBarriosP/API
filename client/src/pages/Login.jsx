@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -18,18 +19,23 @@ const Login = () => {
     if(txtusu.length===0 || txtpas.length===0){
       alert("Complete Los Datos Faltantes!!");
     }else{
-      if(usu === "admin" && pas==="123"){
-        setMiLogin("true");
-        document.getElementById("form_login").style.display = "none";
-        navigate("/order-list");
-      }else{
-        setMiLogin("false");
-        alert("Error De Usuario y/o Contraseña!!");
-        document.getElementById("txtusu").value = "";
-        document.getElementById("txtpas").value = "";
-        document.getElementById("txtusu").focus();
-        
-      }
+      axios
+        .post('http://localhost:4000/auth/login', {
+          username: usu,
+          password: pas,
+        })
+        .then((response)=> {
+          setMiLogin("true");
+          document.getElementById("form_login").style.display = "none";
+          navigate("/order-list");
+        })
+        .catch((error) => {
+          setMiLogin("false");
+          alert("Error De Usuario y/o Contraseña!!");
+          /* document.getElementById("txtusu").value = "";
+          document.getElementById("txtpas").value = ""; */
+          document.getElementById("txtusu").focus();
+        });
     }
   }
  

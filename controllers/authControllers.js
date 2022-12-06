@@ -38,8 +38,10 @@ const Register = async (req, res) => {
   
         const newUser = new User({
           username: req.body.username,
-  
           password: hashedPassword,
+          fullName: req.body.fullName,
+          email: req.body.email,
+          document:req.body.document,
         });
   
         await newUser.save();
