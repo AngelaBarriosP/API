@@ -48,6 +48,7 @@ const Register = async (req, res) => {
   
         return res.status(201).json({
           message: "user is registered",
+          email: req.body.email,
         });
       } else {
         return res.status(403).json({
@@ -62,8 +63,18 @@ const Register = async (req, res) => {
   };
 
 ////////////////////////////
+async function GetOrders(req, res) {
+  try {
+    const orders = await dataOrder.find();
+    return res.status(200).json(orders);
+  } catch (err) {
+    return res.status(404).json("Orders not found");
+  }
+}
 
-  async function Login(req, res) {
+////////////////////////////
+
+async function Login(req, res) {
     try {
       const user = await User.findOne({ username: req.body.username });
       if (!user) {
@@ -86,14 +97,14 @@ const Register = async (req, res) => {
       return res
         .cookie("access_token", token, { httpOnly: true })
         .status(200)
-        .json({ message: "token asignado" });
+        .json({ message: "token asignado", email: "test@test.com" });
     } catch (e) {
       return res.status(500).json({ message: e.message });
     }
   }
 
 module.exports ={validator,valid,
-    Login,Register};
+    Login,Register, GetOrders};
     
   
 

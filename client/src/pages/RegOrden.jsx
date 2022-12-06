@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {Form, Button, Row, Col, Container, Card} from 'react-bootstrap';
 import './style.css';
 import Hora2 from './Time';
@@ -8,7 +10,8 @@ import {useState} from "react";
 
 
 const RegOrden = () => {
-
+  const navigate = useNavigate ();
+  const [fecha, setFecha] = useState();
   const [state, setState] = useState({
     newAncho:"",
     newLargo:"",
@@ -20,7 +23,7 @@ const RegOrden = () => {
     newIdDest:"",
     newDirDest:"",
     newCiuDest:"",
-
+    isDelicated: false,
     })
 
   const handleOnChange = ({ target}, attributte) => {
@@ -31,7 +34,30 @@ const RegOrden = () => {
     setState(cloneState);
   }
 
-
+  const newOrder = () => {
+    axios.post('http://localhost:4000/auth/regOrder', {
+      fecha: new Date(fecha), 
+      hora: new Date(),
+      ancho: state.newAncho,
+      largo: state.newLargo,
+      alto: state.newAlto,
+      peso: state.newPeso,
+      mercDel: state.isDelicated,
+      direcReco: state.newDirRec,
+      ciudadReco: state.newCiuRec,
+      nombreDest: state.newNomDest,
+      cedulaNitDes: state.newIdDest,
+      direcEntr: state.newDirDest,
+      ciudadEntr: state.newCiuDest,
+      estado: "Guardado",
+    })
+      .then((res) => {
+        navigate("/order-list");
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  }
 
   return (
 
@@ -46,7 +72,7 @@ const RegOrden = () => {
         <Container >
             <Form.Group id="Form" as={Row} className="mb-4" >
               <Col md="auto">
-              <Form.Label> Fecha : <Fecha2/> </Form.Label>
+              <Form.Label> Fecha : <Fecha2 updateDate={setFecha}/> </Form.Label>
               </Col>                        
               <Col md="auto">
               <Form.Label> Hora : <Hora2/> </Form.Label>
@@ -74,7 +100,16 @@ const RegOrden = () => {
               <Form.Group id="Form" as={Row} className="mb-4" >
               <Form.Label column md="auto">Mercancía delicada</Form.Label>
               <Col md="auto">
-              <Form.Check id="disabledTextInput" inline/>
+              <Form.Check type={"checkbox"}>
+                <Form.Check.Input
+                  type={"checkbox"}
+                  onClick={(event) => {
+                    setState({
+                      ...state,
+                      isDelicated: event.target.checked,
+                    });
+                  }}/>
+              </Form.Check>
               </Col>
              
             </Form.Group>
@@ -131,7 +166,7 @@ const RegOrden = () => {
                   <Button href="/order-list" type="cancelar">Cancelar</Button>
                 </Col>
                 <Col md="auto">
-                  <Button href="/order-list" type="actualizar">Crear Orden</Button>
+                  <Button onClick={newOrder}>Crear Orden</Button>
                 </Col>
               </Row>
             </fieldset>
