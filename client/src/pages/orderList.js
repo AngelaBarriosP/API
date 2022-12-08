@@ -6,13 +6,14 @@ import {Row, Col} from 'react-bootstrap';
 
 const OrderList=()=>{
     const [orders, setOrders] = useState([]);
-    const [user, setUser] = useState(false);
+    
 
     useEffect(() => {
-        const userEmail = localStorage.getItem("email");
+        
         axios.get('http://localhost:4000/auth/ListOrder')
             .then(res => {
                 setOrders(res.data);
+                console.log(res.data);
             })
             .catch(err => {
                 console.error(err);
@@ -20,11 +21,11 @@ const OrderList=()=>{
     }, [])
 
     const logOut = () => {
-        localStorage.removeItem("email");
-        setUser(false);
+        localStorage.removeItem('userActive');
+        
 
     }
-
+    const userActId = localStorage.getItem('userActive')
     return(
         <div>
             <h2>Gestion de paquetes - Listado de ordenes</h2>
@@ -48,8 +49,8 @@ const OrderList=()=>{
                     </tr>
                 </thead>
                 <tbody>
-                    {   
-                        orders.map((order, idx) => {
+                    {    
+                        orders.filter((order) => order.userActId===userActId).map((order, idx) => 
                             <tr key={idx}>
                                 <th scope="row" ><Link className="d-flex justify-content-center" to="/edit-order">{idx+1}</Link></th>
                                 <td>{order.fecha}</td>
@@ -57,29 +58,9 @@ const OrderList=()=>{
                                 <td>{order.direcEntr}</td>
                                 <td>{order.estado}</td>
                             </tr>    
-                        })
-                    }
-                    {/* <tr>
-                        <th scope="row" ><Link className="d-flex justify-content-center" to="/edit-order">1</Link></th>
-                        <td>01/01/2022</td>
-                        <td>Santa Marta</td>
-                        <td>Cll 1-151-30</td>
-                        <td>Guardado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><Link className="d-flex justify-content-center" to="/edit-order">2</Link></th>
-                        <td>01/01/2022</td>
-                        <td>Santa Marta</td>
-                        <td>Cll 1-151-30</td>
-                        <td>Guardado</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><Link className="d-flex justify-content-center" to="/edit-order">3</Link></th>
-                        <td>01/01/2022</td>
-                        <td>Santa Marta</td>
-                        <td>Cll 1-151-30</td>
-                        <td>Guardado</td>
-                    </tr> */}
+                        )
+                     }
+                    
                 </tbody>
             </table>
         </div>

@@ -66,9 +66,9 @@ const Register = async (req, res) => {
 async function GetOrders(req, res) {
   try {
     const orders = await dataOrder.find();
-    return res.status(200).json(orders);
+      return res.status(200).json(orders);
   } catch (err) {
-    return res.status(404).json("Orders not found");
+      return res.status(404).json("Orders not found");
   }
 }
 

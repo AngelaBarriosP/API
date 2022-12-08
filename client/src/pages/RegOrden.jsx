@@ -50,7 +50,7 @@ const RegOrden = () => {
       direcEntr: state.newDirDest,
       ciudadEntr: state.newCiuDest,
       estado: "Guardado",
-      userActId: localStorage.getItem('userActive')
+      //userActId: localStorage.getItem('userActive')
     })
       .then((res) => {
         navigate("/order-list");
