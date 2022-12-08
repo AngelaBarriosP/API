@@ -10,7 +10,7 @@ import Registro from './pages/Registro';
 function App() {
   return (
     <div className="App m-5">
-        <Router>
+      <Router>
         <Routes>
           <Route path="/" element={<Login />}/>
           <Route path="/login" element={<Login />}/>

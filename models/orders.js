@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'); 
 const Joi = require ("Joi");
+const Schema = mongoose.Schema;
 
 
 var orderSchema = new mongoose.Schema({
@@ -62,7 +63,10 @@ var orderSchema = new mongoose.Schema({
         default:"Guardado"
 
     },
+    userActId:{
+        type: String,
     
+    },
 });
 
 module.exports = mongoose.model("orders", orderSchema)

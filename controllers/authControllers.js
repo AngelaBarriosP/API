@@ -83,10 +83,10 @@ async function Login(req, res) {
       const isPasswordCorrect = await bcrypt.compare(
         req.body.password,
         user.password
-      );
+      ); 
       if (!isPasswordCorrect) {
-        return res.status(400).json({ message: " Wrong password" });
-      }
+          return res.status(400).json({ message: " Wrong password" });
+      } 
   
       const payload = { id: user._id };
       const token = jwt.sign(payload, process.env.JWT_KEY, {
@@ -97,7 +97,9 @@ async function Login(req, res) {
       return res
         .cookie("access_token", token, { httpOnly: true })
         .status(200)
-        .json({ message: "token asignado", email: "test@test.com" });
+        .json({ message: "token asignado", userActive:`${user._id}`})
+
+        
     } catch (e) {
       return res.status(500).json({ message: e.message });
     }

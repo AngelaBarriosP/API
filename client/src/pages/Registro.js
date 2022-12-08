@@ -2,6 +2,7 @@ import {Button, Form, Container, Row, Col} from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import {useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const FormRegister = () => {
@@ -12,6 +13,7 @@ const FormRegister = () => {
           userPass:"",
           userEmail:"",
         })
+    const navigate = useNavigate();
     
     const handleOnChange = ({ target}, attributte) => {
       const value = target.value;
@@ -30,15 +32,16 @@ const FormRegister = () => {
         document:state.userID,
       }).then((res)=>{
         console.log(res);
+        if (res.status==="200") {
+          alert('Success!')
+          navigate("/login")
+        }
 
       }).catch((error)=>{
         console.log(error);
 
       })
-
-      //importat axios
-
-    }
+  }
       
     
     return(

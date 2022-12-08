@@ -36,7 +36,7 @@ const RegOrden = () => {
 
   const newOrder = () => {
     axios.post('http://localhost:4000/auth/regOrder', {
-      fecha: new Date(fecha), 
+      fecha: new Date(), 
       hora: new Date(),
       ancho: state.newAncho,
       largo: state.newLargo,
@@ -50,6 +50,7 @@ const RegOrden = () => {
       direcEntr: state.newDirDest,
       ciudadEntr: state.newCiuDest,
       estado: "Guardado",
+      userActId: localStorage.getItem('userActive')
     })
       .then((res) => {
         navigate("/order-list");

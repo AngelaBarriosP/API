@@ -25,10 +25,10 @@ const Login = () => {
           password: pas,
         })
         .then((response)=> {
-          console.log(response);
-          localStorage.setItem('email', response.data.email);
+          console.log(response.data);
+          localStorage.setItem('userActive', response.data.userActive);
           setMiLogin("true");
-          document.getElementById("form_login").style.display = "none";
+          //document.getElementById("form_login").style.display = "none";
           navigate("/order-list");
         })
         .catch((error) => {
