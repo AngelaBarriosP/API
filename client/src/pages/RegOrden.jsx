@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {Form, Button, Row, Col, Container, Card} from 'react-bootstrap';
@@ -10,7 +10,7 @@ import {useState} from "react";
 
 
 
-const RegOrden = ({data, orderId}) => {
+const RegOrden = () => {
   const navigate = useNavigate ();
   const [fecha, setFecha] = useState();
   const [state, setState] = useState({
@@ -166,7 +166,7 @@ const RegOrden = ({data, orderId}) => {
             <fieldset>
               <Row className="mb-4 justify-content-end">
                 <Col md="auto">
-                  <Button href="/order-list" type="cancelar">Cancelar</Button>
+                  <Button href="/order-list" >Cancelar</Button>
                 </Col>
                 <Col md="auto">
                   <Button onClick={newOrder}>Crear Orden</Button>

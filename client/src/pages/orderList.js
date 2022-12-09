@@ -26,6 +26,7 @@ const OrderList=()=>{
 
     }
     const userActId = localStorage.getItem('userActive')
+    
     return(
         <div>
             <h2>Gestion de paquetes - Listado de ordenes</h2>

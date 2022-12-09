@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 
 const FormRegister = () => {
-    const [state, setState] = useState({
+  const navigate = useNavigate();
+  const [state, setState] = useState({
           userName:"",
           userID:"",
           userNickname:"",
           userPass:"",
           userEmail:"",
         })
-    const navigate = useNavigate();
     
     const handleOnChange = ({ target}, attributte) => {
       const value = target.value;
@@ -31,11 +31,11 @@ const FormRegister = () => {
         email:state.userEmail,
         document:state.userID,
       }).then((res)=>{
-        console.log(res);
-        if (res.status==="200") {
+        //console.log(res);
+        navigate("/login")
+        /* if (res.status==="200") {
           alert('Success!')
-          navigate("/login")
-        }
+        } */
 
       }).catch((error)=>{
         console.log(error);
