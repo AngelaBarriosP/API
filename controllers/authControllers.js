@@ -67,8 +67,20 @@ async function GetOrders(req, res) {
   try {
     const orders = await dataOrder.find();
       return res.status(200).json(orders);
-  } catch (err) {
+    } catch (err) {
       return res.status(404).json("Orders not found");
+    }
+  }
+  
+  
+  ///////////////////////////
+  async function GetToEditOrder (req, res) {
+    try {
+      const orderToEdit = await dataOrder.findById(req.params.id).exec();
+      return res.status(200).json(orderToEdit);
+    } catch (err) {
+        return res.status(404).json("Order not found");
+
   }
 }
 
@@ -106,7 +118,7 @@ async function Login(req, res) {
   }
 
 module.exports ={validator,valid,
-    Login,Register, GetOrders};
+    Login,Register, GetOrders, GetToEditOrder};
     
   
 

@@ -52,7 +52,7 @@ const OrderList=()=>{
                     {    
                         orders.filter((order) => order.userActId===userActId).map((order, idx) => 
                             <tr key={idx}>
-                                <th scope="row" ><Link className="d-flex justify-content-center" to="/edit-order">{idx+1}</Link></th>
+                                <th scope="row" ><Link className="d-flex justify-content-center" to={"/edit-order/"+ order._id}>{idx+1}</Link></th>
                                 <td>{order.fecha}</td>
                                 <td>{order.ciudadEntr}</td>
                                 <td>{order.direcEntr}</td>

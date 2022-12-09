@@ -9,7 +9,8 @@ import {useState} from "react";
 
 
 
-const RegOrden = () => {
+
+const RegOrden = ({data, orderId}) => {
   const navigate = useNavigate ();
   const [fecha, setFecha] = useState();
   const [state, setState] = useState({
@@ -50,7 +51,7 @@ const RegOrden = () => {
       direcEntr: state.newDirDest,
       ciudadEntr: state.newCiuDest,
       estado: "Guardado",
-      //userActId: localStorage.getItem('userActive')
+      userActId: localStorage.getItem('userActive')
     })
       .then((res) => {
         navigate("/order-list");
@@ -59,6 +60,7 @@ const RegOrden = () => {
         console.error(error);
       })
   }
+
 
   return (
 
